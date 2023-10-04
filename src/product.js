@@ -26,12 +26,17 @@ const product = async (query) => {
   try {
     var pricediv = product_page.split(/<div id="unifiedPrice_feature_div".*>/g);
 
-    original_price = pricediv[1]
+    // original_price = pricediv[1]
+    //   .split('<span class="a-offscreen">')[1]
+    //   .split("</span>")[0];
+    original_price = pricediv[0]
+      .split('<td class="a-span12 a-color-secondary a-size-base">')[1]
       .split('<span class="a-offscreen">')[1]
       .split("</span>")[0];
 
     try {
-      price = pricediv[1]
+      // price = pricediv[1]
+      price = pricediv[0]
         .split(
           '<span class="a-price a-text-price a-size-medium apexPriceToPay" data-a-size="b" data-a-color="price">'
         )[1]
@@ -119,7 +124,7 @@ const product = async (query) => {
       in_stock,
       rating_details,
       features,
-      product_link: `https://www.amazon.in/${query}`,
+      product_link: `https://www.amazon.in/${query}`
     };
   } catch (err) {
     var product_detail = null;
@@ -130,7 +135,7 @@ const product = async (query) => {
       status: true,
       query,
       fetch_from: `https://www.amazon.in/${query}`,
-      product_detail,
+      product_detail
     },
     null,
     2
